@@ -4,10 +4,9 @@ gitpython>=3.1.0
 
 # License scanning
 licensecheck>=2024.1
-piplicenses>=4.3.0
+pip-licenses>=4.3.0
 
 # GUI dependencies
-tkinter-tooltip>=2.1.0
 pillow>=10.0.0
 
 # AI/LLM support
@@ -19,6 +18,6 @@ click>=8.1.0
 rich>=13.0.0
 colorama>=0.4.6
 
-# Data handling
-pyyaml>=6.0
+# Data handling (compatible with truffleHog3)
+pyyaml>=5.4,<6.0
 python-dotenv>=1.0.0
