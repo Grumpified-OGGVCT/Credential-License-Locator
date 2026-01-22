@@ -22,14 +22,16 @@ class AIAssistant:
         Args:
             provider: AI provider to use - "ollama-cloud" (default), "ollama-local", or "openrouter"
             openrouter_api_key: API key for OpenRouter (from environment or parameter)
-            ollama_api_key: API key for Ollama CLOUD (from environment or parameter)
+            ollama_api_key: API key for Ollama CLOUD service (from environment or parameter)
+                           Note: For local Ollama, no API key is needed
         """
         self.provider = provider
         self.openrouter_api_key = openrouter_api_key or os.getenv("OPENROUTER_API_KEY")
         self.ollama_api_key = ollama_api_key or os.getenv("OLLAMA_API_KEY")
-        # Ollama CLOUD - full cloud API with advanced capabilities
+        # Ollama CLOUD - cloud-based Ollama service with full API capabilities
+        # This is a hypothetical cloud service endpoint - adjust if using actual Ollama cloud offering
         self.ollama_cloud_url = "https://api.ollama.cloud/v1/chat/completions"
-        # Ollama LOCAL - simple local server connection
+        # Ollama LOCAL - simple local server connection (no API key required)
         self.ollama_local_url = os.getenv("OLLAMA_LOCAL_URL", "http://localhost:11434")
     
     def analyze_findings(self, credentials: List[Dict[str, Any]], 

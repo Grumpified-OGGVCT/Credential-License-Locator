@@ -1,4 +1,7 @@
 # Core scanning dependencies
+# Note: This package provides Python utilities but NOT the trufflehog CLI
+# For credential scanning, install TruffleHog CLI from:
+# https://github.com/trufflesecurity/trufflehog
 truffleHog3>=3.0.0
 gitpython>=3.1.0
 

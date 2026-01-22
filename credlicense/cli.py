@@ -142,7 +142,7 @@ def scan(directory: str, output: Optional[str], ai: bool, ai_provider: str, scan
 
 @main.command()
 @click.argument('results_file', type=click.Path(exists=True))
-@click.option('--format', type=click.Choice(['html', 'pdf', 'markdown']), 
+@click.option('--format', type=click.Choice(['html', 'markdown']), 
               default='html', help='Report format')
 @click.option('--output', '-o', type=click.Path(), help='Output file path')
 def report(results_file: str, format: str, output: Optional[str]):
@@ -174,9 +174,6 @@ def report(results_file: str, format: str, output: Optional[str]):
             generator.generate_html_report(results, output)
         elif format == 'markdown':
             generator.generate_markdown_report(results, output)
-        else:
-            console.print("[yellow]PDF format not yet implemented[/yellow]")
-            return
         
         progress.update(task, completed=True)
     

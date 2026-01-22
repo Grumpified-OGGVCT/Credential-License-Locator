@@ -115,6 +115,11 @@ class LicenseScanner:
         
         if has_requirements or has_setup_py or has_pyproject:
             try:
+                # Check if pip-licenses is available
+                check_cmd = ["pip-licenses", "--help"]
+                subprocess.run(check_cmd, capture_output=True, timeout=5, check=True)
+                
+                # Run pip-licenses
                 result = subprocess.run(
                     ["pip-licenses", "--format=json"],
                     capture_output=True,
@@ -133,7 +138,10 @@ class LicenseScanner:
                             "license": package.get("License", "Unknown"),
                             "confidence": "HIGH"
                         })
-            except (subprocess.TimeoutExpired, FileNotFoundError, json.JSONDecodeError):
+            except FileNotFoundError:
+                # pip-licenses not installed, skip package scanning
+                pass
+            except (subprocess.TimeoutExpired, subprocess.CalledProcessError, json.JSONDecodeError):
                 pass
     
     def _identify_license(self, filepath: Path) -> str:

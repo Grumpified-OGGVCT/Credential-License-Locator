@@ -38,6 +38,8 @@ class CredentialScanner:
             raise ValueError(f"Path is not a directory: {directory}")
         
         # Use TruffleHog to scan the filesystem
+        # Note: This requires the standalone TruffleHog binary from https://github.com/trufflesecurity/trufflehog
+        # NOT the truffleHog3 Python package
         try:
             # TruffleHog filesystem scan
             cmd = [
@@ -67,7 +69,9 @@ class CredentialScanner:
         except subprocess.TimeoutExpired:
             print("Warning: TruffleHog scan timed out")
         except FileNotFoundError:
-            print("Warning: TruffleHog not installed. Install with: pip install truffleHog3")
+            print("Warning: TruffleHog not installed.")
+            print("Install from: https://github.com/trufflesecurity/trufflehog")
+            print("Or use: brew install trufflehog (macOS) / Docker image available")
         except Exception as e:
             print(f"Error running TruffleHog: {e}")
         
