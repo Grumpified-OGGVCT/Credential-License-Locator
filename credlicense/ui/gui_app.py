@@ -352,7 +352,6 @@ class CredentialLicenseGUI:
         
         # Run scan in separate thread
         scan_thread = threading.Thread(target=self._perform_scan, args=(directory,))
-        scan_thread.daemon = True
         scan_thread.start()
     
     def _perform_scan(self, directory):
@@ -363,21 +362,27 @@ class CredentialLicenseGUI:
             scan_type = self.scan_type_var.get()
             
             # Credential scanning
-            if scan_type in ['all', 'credentials']:
+            if scan_type in ['all', 'credentials'] and self.scanning:
                 cred_scanner = CredentialScanner()
                 self.results["credentials"] = cred_scanner.scan_directory(directory)
+            
+            if not self.scanning:
+                return
             
             self._update_status("Scanning for licenses...")
             
             # License scanning
-            if scan_type in ['all', 'licenses']:
+            if scan_type in ['all', 'licenses'] and self.scanning:
                 lic_scanner = LicenseScanner()
                 self.results["licenses"] = lic_scanner.scan_directory(directory)
+            
+            if not self.scanning:
+                return
             
             self.results["directory"] = directory
             
             # AI Analysis
-            if self.ai_enabled_var.get():
+            if self.ai_enabled_var.get() and self.scanning:
                 self._update_status("Running AI analysis...")
                 
                 provider = self.ai_provider_var.get()
@@ -391,7 +396,8 @@ class CredentialLicenseGUI:
                 self.results["ai_analysis"] = ai_result
             
             # Update UI with results
-            self.root.after(0, self._display_results)
+            if self.scanning:
+                self.root.after(0, self._display_results)
             
         except Exception as e:
             self.root.after(0, lambda: messagebox.showerror("Scan Error", f"An error occurred: {str(e)}"))
@@ -580,7 +586,7 @@ LICENSES:
 def launch_gui():
     """Launch the GUI application."""
     root = tk.Tk()
-    app = CredentialLicenseGUI(root)
+    CredentialLicenseGUI(root)
     root.mainloop()
 
 

@@ -5,8 +5,6 @@ Command Line Interface for Credential-License-Locator
 Provides a rich CLI experience for scanning credentials and licenses.
 """
 
-import os
-import sys
 import json
 from pathlib import Path
 from typing import Optional
@@ -16,7 +14,6 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.prompt import Confirm
 
 from credlicense.core.credential_scanner import CredentialScanner
 from credlicense.core.license_scanner import LicenseScanner

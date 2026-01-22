@@ -37,7 +37,7 @@ setup(
         "click>=8.1.0",
         "rich>=13.0.0",
         "colorama>=0.4.6",
-        "pyyaml>=5.4,<6.0",
+        "pyyaml>=5.4,<7.0",
         "python-dotenv>=1.0.0",
         "openai>=1.0.0",
         "requests>=2.31.0",

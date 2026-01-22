@@ -8,9 +8,13 @@ This module scans for software licenses in files and dependencies.
 import os
 import subprocess
 import json
+import logging
 from typing import List, Dict, Any
 from pathlib import Path
 import re
+
+# Set up logging for debugging
+logger = logging.getLogger(__name__)
 
 
 class LicenseScanner:
@@ -140,9 +144,13 @@ class LicenseScanner:
                         })
             except FileNotFoundError:
                 # pip-licenses not installed, skip package scanning
-                pass
-            except (subprocess.TimeoutExpired, subprocess.CalledProcessError, json.JSONDecodeError):
-                pass
+                logger.debug("pip-licenses not installed, skipping package license scanning")
+            except subprocess.TimeoutExpired:
+                logger.debug("pip-licenses timed out")
+            except subprocess.CalledProcessError as e:
+                logger.debug(f"pip-licenses command failed: {e}")
+            except json.JSONDecodeError as e:
+                logger.debug(f"Failed to parse pip-licenses output: {e}")
     
     def _identify_license(self, filepath: Path) -> str:
         """Identify license type from a license file."""

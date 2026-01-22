@@ -5,7 +5,6 @@ Credential Scanner Module
 This module integrates TruffleHog for detecting credentials in files and repositories.
 """
 
-import os
 import subprocess
 import json
 from typing import List, Dict, Any
@@ -84,7 +83,7 @@ class CredentialScanner:
             "detector": finding.get("DetectorName", "Unknown"),
             "file": finding.get("SourceMetadata", {}).get("Data", {}).get("Filesystem", {}).get("file", "Unknown"),
             "line": finding.get("SourceMetadata", {}).get("Data", {}).get("Filesystem", {}).get("line", 0),
-            "secret": finding.get("Raw", "***REDACTED***")[:50] + "...",  # Truncate for safety
+            "secret": "***REDACTED***",
             "verified": finding.get("Verified", False),
             "severity": "HIGH" if finding.get("Verified", False) else "MEDIUM",
             "raw_data": finding

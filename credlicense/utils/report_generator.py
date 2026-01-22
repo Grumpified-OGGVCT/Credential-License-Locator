@@ -5,7 +5,6 @@ Report Generator Module
 Generates reports in various formats from scan results.
 """
 
-import json
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any

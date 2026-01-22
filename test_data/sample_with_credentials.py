@@ -3,8 +3,6 @@
 Sample file with an API key for testing credential detection.
 """
 
-import os
-
 # WARNING: This is a fake API key for testing purposes only
 API_KEY = "sk-1234567890abcdefghijklmnopqrstuvwxyz"
 AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"

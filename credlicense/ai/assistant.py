@@ -6,7 +6,6 @@ Integrates with Ollama (local) and OpenRouter (cloud) for AI-powered analysis.
 """
 
 import os
-import json
 import requests
 from typing import Dict, Any, List, Optional
 

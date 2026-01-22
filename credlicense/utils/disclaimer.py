@@ -65,7 +65,11 @@ def show_disclaimer(force: bool = False) -> bool:
     if force:
         return True
     
-    return Confirm.ask("\n[bold]Do you acknowledge and agree to use this tool ethically and legally?[/bold]")
+    try:
+        return Confirm.ask("\n[bold]Do you acknowledge and agree to use this tool ethically and legally?[/bold]")
+    except KeyboardInterrupt:
+        console.print("\n[bold red]Disclaimer prompt interrupted. Exiting.[/bold red]")
+        return False
 
 
 def show_security_warning():
